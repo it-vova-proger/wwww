@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>главная страница</title>
+        <style>
+            body {
+                background:white;
+            }
+            #game {
+                width:900px;
+                background:gray;
+                border:5px solid black;
+                position:relative;
+                left:30px;
+            }
+            #wrapper{
+                width:100vw;
+                height:100vh;
+                display:flex;
+                flex-direction:column;
+            }
+            #conteiner {
+                width:100%;
+                height:40%;
+                display:flex;
+                justify-content:center;
+                position:relative;
+                top:500px;
+            }
+            .button {
+                width:220px;
+                height:220px;
+                border:10px solid rgb(55,55,55);
+                font-size:130px;
+                color:green;
+                background:rgb(190,190,190);
+            }
+            #blockbut {
+                display:flex;
+                flex-direction:column;
+                height:80%;
+                
+            }
+            #right {
+                position:relative;
+                top:220px;
+                left:4px;
+            }
+            #left {
+                position:relative;
+                top:220px;
+                left:-4px;
+                transform:rotate(180deg);
+            }
+            #up {
+                position:relative;
+                top:-22px;
+                transform:rotate(-90deg);
+                font-size:150px;
+            }
+            #down {
+                position:relative;
+                top:-19px;
+                font-size:150px;
+                transform:rotate(90deg);
+            }
+            .but {
+                position:relative;
+                top:23px;
+                left:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+        <canvas id="game"></canvas>
+        <div id="conteiner">
+            <div id="left" class="button"><span class="but">=></span></div>
+            <div id="blockbut">
+                <div id="up" class="button"><span class="but">=></span></div>
+                <div id="down" class="button"><span class="but">=></span></div>
+            </div>
+            <div id="right" class="button"><span class="but">=></span></div>
+        </div>
+        </div>
+        <script>
+            var ctx = document.getElementById("game").getContext("2d");
+            var box = 12
+            var snake = {
+                x:144,
+                y:60,
+            }
+            let snakes = [{x:-100,y:-100},{x:-100,y:-100},{x:-100,y:-100}]
+            var food = {
+                x:Math.floor((Math.random() * 24 + 1)) * box,
+                y:Math.floor((Math.random() * 11 + 1)) * box,
+            }
+            var num1 = 0;
+            var num2 = 0;
+            document.getElementById("left").addEventListener("click",()=>{
+                  num2 = 0
+                  num1 = -box
+                  nom+= 1
+            })
+            document.getElementById("up").addEventListener("click",()=>{
+                num2 = -box
+                num1 = 0
+                nom+= 1
+            })
+            document.getElementById("down").addEventListener("click",()=>{
+                num2 = box
+                num1 = 0
+                nom+= 1
+            })
+            document.getElementById("right").addEventListener("click",()=>{
+                num2 = 0
+                num1 = box
+                nom+= 1
+            })
+            var nom = 0
+            function foodf(){
+                food.x = Math.floor((Math.random() * 24 + 1)) * box;
+                food.y = Math.floor((Math.random() * 11 + 1)) * box,
+                ctx.clearRect(food.x,food.y,box,box)
+                ctx.fillStyle = "orangered"
+                ctx.fillRect(food.x,food.y,box,box)
+            }
+            var gameser = setInterval(function(){
+                var bil = snakes.length;
+                for(let i=0;i < bil;i++){
+                    ctx.clearRect(snakes[i].x,snakes[i].y,box,box)
+                }
+                snakes[0].x = snake.x
+                snakes[0].y = snake.y
+                
+                for(let il = bil-1;il > 0;il--){
+                    snakes[il].x = snakes[il-1].x;
+                    snakes[il].y = snakes[il-1].y;
+                }
+                ctx.clearRect(snake.x,snake.y,box,box)
+                
+                if(snake.y > 144){
+                    snake.y = -12
+                }
+                if(snake.y < -12 ){
+                    snake.y = 144
+                }
+                if(snake.x < -12){
+                    snake.x = 300
+                }
+                if(snake.x > 300 ){
+                    snake.x = -12
+                }
+                if(snake.x == food.x && snake.y == food.y){
+                    foodf()
+                    snakes.push({x:-100,y:-100});
+                }
+                ctx.fillStyle = "orangered"
+                ctx.fillRect(food.x,food.y,box,box)
+                ctx.fillStyle = "darkgreen";
+                ctx.fillRect(snake.x += num1,snake.y += num2,box,box)
+                for(let i=0;i < snakes.length;i++){
+                    ctx.fillRect(snakes[i].x,snakes[i].y,box,box)
+                if(nom > 5){
+                    for(let i=0;i< snakes.length;i++){
+                        if(snake.x == snakes[i].x && snake.y == snakes[i].y){
+                            clearInterval(gameser);
+                        }
+                    }
+                }
+                }
+                
+            },400)
+        </script>
+    </body>
+</html>

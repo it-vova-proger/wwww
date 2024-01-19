@@ -121,10 +121,14 @@
             var nom = 0
             function foodf(){
                 food.x = Math.floor((Math.random() * 24 + 1)) * box;
-                food.y = Math.floor((Math.random() * 11 + 1)) * box,
-                ctx.clearRect(food.x,food.y,box,box)
-                ctx.fillStyle = "orangered"
-                ctx.fillRect(food.x,food.y,box,box)
+                food.y = Math.floor((Math.random() * 11 + 1)) * box;
+                for(let i =0;i < snakes.length;i++){
+                    if(snakes[i].x != food.x && snakes[i].y != food.y){
+                        ctx.clearRect(food.x,food.y,box,box)
+                        ctx.fillStyle = "orangered"
+                        ctx.fillRect(food.x,food.y,box,box)
+                    }
+                }
             }
             var gameser = setInterval(function(){
                 var bil = snakes.length;

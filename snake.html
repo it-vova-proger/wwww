@@ -32,15 +32,13 @@
                 width:220px;
                 height:220px;
                 border:10px solid rgb(55,55,55);
-                font-size:130px;
+                font-size:50px;
                 color:green;
-                background:rgb(190,190,190);
             }
             #blockbut {
                 display:flex;
                 flex-direction:column;
                 height:80%;
-                
             }
             #right {
                 position:relative;
@@ -55,20 +53,13 @@
             }
             #up {
                 position:relative;
-                top:-22px;
+                top:-4px;
                 transform:rotate(-90deg);
-                font-size:150px;
+                font-size:70px;
             }
             #down {
-                position:relative;
-                top:-19px;
-                font-size:150px;
+                font-size:70px;
                 transform:rotate(90deg);
-            }
-            .but {
-                position:relative;
-                top:23px;
-                left:20px;
             }
         </style>
     </head>
@@ -76,12 +67,12 @@
         <div id="wrapper">
         <canvas id="game"></canvas>
         <div id="conteiner">
-            <div id="left" class="button"><span class="but">=></span></div>
+            <button id="left" class="button">==></button>
             <div id="blockbut">
-                <div id="up" class="button"><span class="but">=></span></div>
-                <div id="down" class="button"><span class="but">=></span></div>
+                <button id="up" class="button">=></button>
+                <button id="down" class="button">=></button>
             </div>
-            <div id="right" class="button"><span class="but">=></span></div>
+            <button id="right" class="button">==></button>
         </div>
         </div>
         <script>
@@ -99,35 +90,33 @@
             var num1 = 0;
             var num2 = 0;
             document.getElementById("left").addEventListener("click",()=>{
-                  num2 = 0
-                  num1 = -box
-                  nom+= 1
+                num2 = 0
+                num1 = -box
+                nom = 6
             })
             document.getElementById("up").addEventListener("click",()=>{
                 num2 = -box
                 num1 = 0
-                nom+= 1
+                nom = 6
             })
             document.getElementById("down").addEventListener("click",()=>{
                 num2 = box
                 num1 = 0
-                nom+= 1
+                nom = 6
             })
             document.getElementById("right").addEventListener("click",()=>{
                 num2 = 0
                 num1 = box
-                nom+= 1
+                nom = 6
             })
             var nom = 0
             function foodf(){
                 food.x = Math.floor((Math.random() * 24 + 1)) * box;
                 food.y = Math.floor((Math.random() * 11 + 1)) * box;
-                for(let i =0;i < snakes.length;i++){
-                    if(snakes[i].x != food.x && snakes[i].y != food.y){
-                        ctx.clearRect(food.x,food.y,box,box)
-                        ctx.fillStyle = "orangered"
-                        ctx.fillRect(food.x,food.y,box,box)
-                    }
+                if(food.x != snake.x && food.y != snake.y){
+                    ctx.clearRect(food.x,food.y,box,box)
+                    ctx.fillStyle = "orangered"
+                    ctx.fillRect(food.x,food.y,box,box)
                 }
             }
             var gameser = setInterval(function(){
@@ -174,7 +163,6 @@
                     }
                 }
                 }
-                
             },400)
         </script>
     </body>
